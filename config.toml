@@ -1,0 +1,10 @@
+# ? check by running "ls -l /sys/class/backlight"
+acpi_device = "acpi_video0"
+# ? check by running xrandr
+xrandr_display = "eDP-1-0"
+brightness_increment = 10
+
+# ? check by running "acpi_listen" and pressing the corresponding button on your keyboard 
+[acpi_events]
+brightness_up = "video/brightnessup BRTUP 00000086 00000000"
+brightness_down = "video/brightnessdown BRTDN 00000087 00000000"
