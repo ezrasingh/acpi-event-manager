@@ -98,6 +98,6 @@ As you can probably tell by now, keeping track of all these details is getting o
 5. Rust applies it to ACPI by storing in `/etc/acpi/events/`
 6. Rust restart the ACPI daemon
 
-And that's how/why I created ACPI Back-Light Config Manager.
+And that's why I created the [ACPI Event Manager](https://github.com/ezrasingh/acpi-event-manager).
 
-Now I at least automated the ACPI configuration onto my system. Maybe in the future I'll update the CLI to **auto detect** the ACPI events and what not with a `setup` sub-command.
+Now, I at least automated the ACPI configuration onto my system. Maybe in the future I'll update the CLI to **auto detect** the ACPI events and what not with a `setup` sub-command.
