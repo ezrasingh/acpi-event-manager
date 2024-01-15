@@ -6,7 +6,7 @@ This script is for Ubuntu developers like me who made the mistake of buying an H
 
 ## Getting Started
 
-- [Install](<(https://www.rust-lang.org/tools/install)>) `cargo` .
+- [Install](https://www.rust-lang.org/tools/install) `cargo` .
 - [Install](https://github.com/casey/just?tab=readme-ov-file#packages) `just` (`cargo install just`)
 
 This project uses a `justfile`, to see availble commands run `just`.
