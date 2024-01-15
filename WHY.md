@@ -23,11 +23,11 @@ I enabled it hoping this would work and well it did but ... sorta. Now my bright
 xrandr --output eDP --brightness 1.5
 ```
 
-Because I often prefer to work late night, I would have to constantly switch and toggle `xrandr`` to control my brightness. Which eventually (after weeks of this) started to get annoying. So one day, I made large cup of coffee, sat down in my living room and started digging to find a better (ideally permanent) solution.
+Because I often prefer to work late night, I would have to constantly switch and toggle `xrandr`` to control my brightness. Which eventually (after weeks of this) started to get annoying.
 
 ## Research & Tinkering
 
-Eventually, I learned that if I modified the files in `/sys/class/backlight/acpi_video0` directory, I could control low level display values.
+So one morning, I made a large cup of coffee, sat down in my living room and started digging to find a better (ideally permanent) solution. Eventually, I learned that if I modified the files in `/sys/class/backlight/acpi_video0` directory, I could control low level display values.
 
 > The name `acpi_video0` is [not necessarily generic](https://wiki.archlinux.org/title/backlight), this _depends on your graphics card model_
 
