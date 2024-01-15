@@ -1,6 +1,8 @@
-# ACPI Back-Light Config Manager
+# ACPI Event Manager
 
-> This script is for Ubuntu developers like me who made the mistake of buying an HP 🙃
+> ACPI Event Manager for brightness control
+
+This script is for Ubuntu developers like me who made the mistake of buying an HP 🙃
 
 ## Getting Started
 
