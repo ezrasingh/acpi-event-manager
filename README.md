@@ -1,6 +1,6 @@
 # ACPI Event Manager
 
-![example branch parameter](https://github.com/ezrasingh/acpi-event-manager/actions/workflows/release.yml/badge.svg?branch=main)
+![Status](https://github.com/ezrasingh/acpi-event-manager/actions/workflows/release.yml/badge.svg?branch=main)
 
 > ACPI Event Manager for brightness control
 
