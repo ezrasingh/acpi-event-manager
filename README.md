@@ -27,7 +27,7 @@ Options:
   -V, --version                    Print version
 ```
 
-To compile and install the script run `just install`, this will link the `acpi-keyboard-backlight` CLI binary to `/usr/local/bin` directory. Or if you dont want to install onto your system you can try `just cli <args>`.
+To compile and install the script run `just install`, this will link the `acpi-keyboard-backlight` CLI binary to your `/usr/local/bin` directory. Or if you dont want to install onto your system you can try `just cli <args>`.
 
 For help setting up your [`config.toml`](config.toml), see the [HELPME.md](HELPME.md) doc.
 
