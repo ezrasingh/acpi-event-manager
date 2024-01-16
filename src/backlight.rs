@@ -51,11 +51,10 @@ impl BacklightConfig {
 
 #[cfg(test)]
 mod tests {
-    use std::path::PathBuf;
-
     use crate::acpi;
     use crate::backlight::BacklightConfig;
     use crate::config::Config;
+    use std::path::PathBuf;
 
     struct Helpers {
         fixtures_path: PathBuf,

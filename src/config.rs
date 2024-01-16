@@ -45,12 +45,14 @@ impl Config {
             &format!("--action down --config-file {}", &config_dir),
             "keyboard-backlight-down",
             &self.acpi_events.brightness_down,
+            None,
         )?;
         acpi::set_acpi_event_script(
             "acpi-keyboard-backlight",
             &format!("--action up --config-file {}", &config_dir),
             "keyboard-backlight-up",
             &self.acpi_events.brightness_up,
+            None,
         )?;
         acpi::reload_acpi();
         Ok(())
