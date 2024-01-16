@@ -84,7 +84,7 @@ mod tests {
         std::fs::write(helpers.acpi_device_path.join("max_brightness"), "31415")?;
 
         // ! required to prevent filesystem race conditions
-        let wait_time = std::time::Duration::from_secs(1);
+        let wait_time = std::time::Duration::from_secs(5);
         std::thread::sleep(wait_time);
 
         Ok(helpers)
