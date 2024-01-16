@@ -57,7 +57,7 @@ So in my case I would set `xrandr_display = "eDP-1-0"` in the [`config.toml`](co
 
 If unsure check by running `sudo acpi_listen` and pressing the corresponding button on your keyboard.
 
-The corresponding event should log onto your shell. You can expect to see something like this (except the comments I added, those are only there to indicate my physical actions):
+The corresponding event should log onto your shell. You can expect to see something like this (except the comments I added, those are only to indicate my physical actions):
 
 ```shell
 ❯ sudo acpi_listen
