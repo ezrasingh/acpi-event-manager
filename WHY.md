@@ -1,4 +1,4 @@
-# Why Did I Make This
+# How Rust Saved My Eyes
 
 ## Preface
 
@@ -61,7 +61,7 @@ The files of interest to me were: `brightness`, `actual_brightness` and `max_bri
 
 Each of these files store an ASCII encoded integer, just change the number and save the file. ACPI will read the values stored in them to control hardware components.
 
-Whoever thought of having two separate variables for brightness I hate them, the time [wasted](https://bbs.archlinux.org/viewtopic.php?id=174991) because of this was traumatic, And in the end, neither `brightness` or `actual_brightness` worked. However, `max_brightness` _did_ seem to have an affect and `xrandr` was still working.
+Whoever thought of having two separate variables for brightness I hate them and the time [wasted](https://bbs.archlinux.org/viewtopic.php?id=174991) because of this was traumatic. In the end, neither `brightness` nor `actual_brightness` worked. However, `max_brightness` _did_ seem to have an affect and `xrandr` was still working.
 
 So I thought okay I'll just:
 
@@ -77,7 +77,7 @@ _However_, the input to `xrandr --brightness` is a `float` and ... `floats` + ba
 2. Natural choice for system level programming
 3. `cargo` was already installed on my machine
 
-The icing on the cake was that I also discovered how to create custom ACPI event handlers by adding a config files to `/etc/acpi/events/`. Meaning I could run a command/script every time a specified event fired (i.e pressed hotkey, low power, etc).
+The icing on the cake was that I also discovered how to create custom ACPI event handlers by adding config files to `/etc/acpi/events/`. Meaning I could run a command/script every time a specified event fired (i.e pressed hotkey, low power, etc).
 
 To find the exact ACPI event associated with my brightness up/down hotkeys I ran `sudo acpi_listen` to log all events into my shell, which for me looked like this:
 
