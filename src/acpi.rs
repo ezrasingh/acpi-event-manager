@@ -39,8 +39,9 @@ pub fn set_acpi_event_script(
     script_args: &str,
     event_name: &str,
     event_code: &str,
+    acpi_events_path: Option<&Path>,
 ) -> Result<(), std::io::Error> {
-    let acpi_events_dir = Path::new("/etc/acpi/events");
+    let acpi_events_dir = acpi_events_path.unwrap_or(Path::new("/etc/acpi/events"));
     let mut event_script = File::create(acpi_events_dir.join(event_name))?;
 
     let content = format!(
@@ -103,4 +104,29 @@ pub fn save(config: config::Config, backlight: backlight::BacklightConfig) {
         ])
         .output()
         .expect("could not change brightness");
+}
+
+mod tests {
+
+    #[test]
+    fn set_acpi_event() {
+        let cwd = std::env::current_dir().unwrap();
+        let events_path = cwd.join("fixtures").join("events");
+        let result = crate::acpi::set_acpi_event_script(
+            "script_path",
+            &format!("script_arg"),
+            "event_name",
+            "event_code",
+            Some(&events_path),
+        );
+
+        assert!(result.is_ok());
+        assert!(events_path.join("event_name").exists());
+
+        let event_config = std::fs::read_to_string("fixtures/events/event_name");
+        assert_eq!(
+            event_config.unwrap(),
+            "event=event_code\naction=script_path script_arg\n"
+        );
+    }
 }
