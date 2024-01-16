@@ -1,27 +1,33 @@
+use std::num::ParseIntError;
 use std::path::{Path, PathBuf};
 
 use crate::acpi;
 use crate::config::Config;
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct BacklightConfig {
+    pub brightness: i16,
     max: i16,
-    brightness: i16,
     min: i16,
 }
 
 impl BacklightConfig {
-    // ? determine current backlight config frmo system files
-    pub fn from_config(config: &Config, sys_class_path: Option<PathBuf>) -> BacklightConfig {
+    // ? determine current backlight config from system files
+    pub fn from_config(
+        config: &Config,
+        sys_class_path: Option<PathBuf>,
+    ) -> Result<BacklightConfig, ParseIntError> {
         let base_dir = sys_class_path.unwrap_or("/sys/class/backlight".into());
         let device_config_dir = Path::new(&base_dir).join(&config.acpi_device);
-        let max_brightness = acpi::read_acpi_config_value(device_config_dir.join("max_brightness"));
-        let current_brightness = acpi::read_acpi_config_value(device_config_dir.join("brightness"));
-        BacklightConfig {
+        let max_brightness =
+            acpi::read_acpi_config_value(device_config_dir.join("max_brightness"))?;
+        let current_brightness =
+            acpi::read_acpi_config_value(device_config_dir.join("brightness"))?;
+        Ok(BacklightConfig {
             max: max_brightness,
             brightness: current_brightness,
             min: 1,
-        }
+        })
     }
 
     // ? calulate current brightness as ratio
@@ -30,7 +36,7 @@ impl BacklightConfig {
         format!("{:.3}", ratio)
     }
 
-    // ? modify brigtness value and call xrandr on system
+    // ? modify brigtness value
     pub fn change_brightness(&mut self, increment: i16) {
         let value = self.brightness + increment;
         if value > self.max {
@@ -40,11 +46,6 @@ impl BacklightConfig {
         } else {
             self.brightness = value
         }
-    }
-
-    // ? store brightness values in acpi config
-    pub fn save(&self, acpi_device: &str) -> Result<(), std::io::Error> {
-        acpi::set_acpi_config_value(acpi_device, "brightness", &self.brightness.to_string())
     }
 }
 
@@ -98,9 +99,12 @@ mod tests {
     #[test]
     fn create_backlight_config() {
         let helpers = prepare().unwrap();
-        let backlight = BacklightConfig::from_config(&helpers.config, Some(helpers.fixtures_path));
+        let backlight =
+            BacklightConfig::from_config(&helpers.config, Some(helpers.fixtures_path)).unwrap();
+
         assert_eq!(backlight.brightness, 27182);
         assert_eq!(backlight.max, 31415);
+
         cleanup().unwrap();
     }
 
@@ -108,14 +112,17 @@ mod tests {
     fn validate_percentage() {
         let helpers = prepare().unwrap();
         let mut backlight =
-            BacklightConfig::from_config(&helpers.config, Some(helpers.fixtures_path));
+            BacklightConfig::from_config(&helpers.config, Some(helpers.fixtures_path)).unwrap();
+
         let expected = format!(
             "{:.3}",
             Into::<f32>::into(backlight.brightness / backlight.max)
         );
         assert_eq!(backlight.percentage(), expected);
+
         backlight.brightness = backlight.max;
         assert_eq!(backlight.percentage(), "1.000");
+
         cleanup().unwrap();
     }
 
@@ -123,10 +130,12 @@ mod tests {
     fn increase_brightness() {
         let helpers = prepare().unwrap();
         let mut backlight =
-            BacklightConfig::from_config(&helpers.config, Some(helpers.fixtures_path));
+            BacklightConfig::from_config(&helpers.config, Some(helpers.fixtures_path)).unwrap();
+
         let expected = backlight.brightness + helpers.config.brightness_increment;
         backlight.change_brightness(helpers.config.brightness_increment);
         assert_eq!(backlight.brightness, expected);
+
         cleanup().unwrap();
     }
 
@@ -134,13 +143,16 @@ mod tests {
     fn overflow_brightness() {
         let helpers = prepare().unwrap();
         let mut backlight =
-            BacklightConfig::from_config(&helpers.config, Some(helpers.fixtures_path));
+            BacklightConfig::from_config(&helpers.config, Some(helpers.fixtures_path)).unwrap();
+
         backlight.brightness = backlight.max;
         backlight.change_brightness(helpers.config.brightness_increment);
         assert_eq!(backlight.brightness, backlight.max);
+
         backlight.brightness = backlight.max + 123;
         backlight.change_brightness(helpers.config.brightness_increment);
         assert_eq!(backlight.brightness, backlight.max);
+
         cleanup().unwrap();
     }
 
@@ -148,10 +160,12 @@ mod tests {
     fn decrease_brightness() {
         let helpers = prepare().unwrap();
         let mut backlight =
-            BacklightConfig::from_config(&helpers.config, Some(helpers.fixtures_path));
+            BacklightConfig::from_config(&helpers.config, Some(helpers.fixtures_path)).unwrap();
+
         let expected = backlight.brightness - helpers.config.brightness_increment;
         backlight.change_brightness(-helpers.config.brightness_increment);
         assert_eq!(backlight.brightness, expected);
+
         cleanup().unwrap();
     }
 
@@ -159,16 +173,20 @@ mod tests {
     fn underflow_brightness() {
         let helpers = prepare().unwrap();
         let mut backlight =
-            BacklightConfig::from_config(&helpers.config, Some(helpers.fixtures_path));
+            BacklightConfig::from_config(&helpers.config, Some(helpers.fixtures_path)).unwrap();
+
         backlight.brightness = backlight.min;
         backlight.change_brightness(-helpers.config.brightness_increment);
         assert_eq!(backlight.brightness, backlight.min);
+
         backlight.brightness = 0;
         backlight.change_brightness(-helpers.config.brightness_increment);
         assert_eq!(backlight.brightness, backlight.min);
+
         backlight.brightness = -123;
         backlight.change_brightness(-helpers.config.brightness_increment);
         assert_eq!(backlight.brightness, backlight.min);
+
         cleanup().unwrap();
     }
 }
