@@ -43,7 +43,7 @@ All settings are stored in [`config.toml`](config.toml) at the project root.
 | `acpi_events.brightness_up`   | ACPI event code for brightness up                       |
 | `acpi_events.brightness_down` | ACPI event code for brightness down                     |
 
-For help setting up your [`config.toml`](config.toml), see the [HELPME.md](HELPME) doc.
+For help setting up your [`config.toml`](config.toml), see the [HELPME](HELPME.md) doc.
 
 ## Unit Testing 🧪
 
