@@ -28,9 +28,13 @@ To view availble ACPI devices check the following directory `/sys/class/backligh
 ❯ tre /sys/class/backlight
 /sys/class/backlight
 └── acpi_video0
+
+# or
+❯ ls /sys/class/backlight
+acpi_video0
 ```
 
-So in my case I would set `acpi_device = "acpi_video0"` in my [`config.toml`](config.toml)
+So in my case I would set `acpi_device = "acpi_video0"` in the [`config.toml`](config.toml)
 
 ## Listing Xrandr Displays
 
@@ -40,14 +44,14 @@ By default `xrandr` shows availble displays. For me, it looked like this:
 ❯ xrandr
 Screen 0: minimum 8 x 8, current 1920 x 1080, maximum 32767 x 32767
 HDMI-0 disconnected # ...
-eDP-1-0 connected primary # <- we only need this part
+eDP-1-0 connected primary # <- you only need this part
    1920x1080    144.00*+  60.02
    1680x1050    144.00
    1280x1024    144.00
 # ...
 ```
 
-So in my case I would set `xrandr_display = "eDP-1-0"`
+So in my case I would set `xrandr_display = "eDP-1-0"` in the [`config.toml`](config.toml)
 
 ## Determine ACPI Event Codes
 
@@ -62,4 +66,12 @@ video/brightnessdown BRTDN 00000087 00000000
 
 # presses brightness up button
 video/brightnessup BRTUP 00000086 00000000
+```
+
+So in my case I would set the `[acpi_events]` block in the [`config.toml`](config.toml) to:
+
+```toml
+[acpi_events]
+brightness_up = "video/brightnessup BRTUP 00000086 00000000"
+brightness_down = "video/brightnessdown BRTDN 00000087 00000000"
 ```
