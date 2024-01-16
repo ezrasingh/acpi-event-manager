@@ -29,8 +29,6 @@ Options:
 
 To compile and install the script run `just install`, this will link the `acpi-keyboard-backlight` CLI binary to your `/usr/local/bin` directory. Or if you dont want to install onto your system you can try `just cli <args>`.
 
-For help setting up your [`config.toml`](config.toml), see the [HELPME.md](HELPME.md) doc.
-
 ## Configuration 🔧
 
 All settings are stored in [`config.toml`](config.toml) at the project root.
@@ -42,6 +40,8 @@ All settings are stored in [`config.toml`](config.toml) at the project root.
 | `brightness_increment`        | how much to change brightness on up/down                |
 | `acpi_events.brightness_up`   | ACPI event code for brightness up                       |
 | `acpi_events.brightness_down` | ACPI event code for brightness down                     |
+
+For help setting up your [`config.toml`](config.toml), see the [HELPME.md](HELPME.md) doc.
 
 ## Unit Testing 🧪
 
