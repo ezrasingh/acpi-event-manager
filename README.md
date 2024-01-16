@@ -4,7 +4,7 @@
 
 This script is for Ubuntu developers like me who made the mistake of buying an HP 🙃
 
-## Getting Started
+## Getting Started 🚀
 
 - [Install](https://www.rust-lang.org/tools/install) `cargo`
 - [Install](https://github.com/casey/just?tab=readme-ov-file#packages) `just` (`cargo install just`)
@@ -75,7 +75,7 @@ video/brightnessdown BRTDN 00000087 00000000
 video/brightnessup BRTUP 00000086 00000000
 ```
 
-## Configuration
+## Configuration 🔧
 
 All settings are stored in [`config.toml`](config.toml) at the project root.
 
@@ -87,7 +87,7 @@ All settings are stored in [`config.toml`](config.toml) at the project root.
 | `acpi_events.brightness_up`   | ACPI event code for brightness up                       |
 | `acpi_events.brightness_down` | ACPI event code for brightness down                     |
 
-## Unit Testing
+## Unit Testing 🧪
 
 To prevent test from actually modifying system files, I replicated the filesystem needed to run unit test in the `fixtures/` directory. There is also a mock `config.toml` for validating the config parser.
 
