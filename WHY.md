@@ -95,8 +95,8 @@ As you can probably tell by now, keeping track of all these details is getting o
 2. You create/update [`config.toml`](config.toml) with data from step 1
 3. Run the CLI
 4. Rust generates the event handler config
-5. Rust applies it to ACPI by storing in `/etc/acpi/events/`
-6. Rust restart the ACPI daemon
+5. Rust applies the handler config by storing in `/etc/acpi/events/`
+6. Rust restarts the ACPI daemon
 
 And that's why I created the [ACPI Event Manager](https://github.com/ezrasingh/acpi-event-manager).
 
