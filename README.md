@@ -77,6 +77,8 @@ video/brightnessup BRTUP 00000086 00000000
 
 ## Configuration
 
+All settings are stored in [`config.toml`](config.toml) at the project root.
+
 | Config Flag                   | Description                                             |
 | ----------------------------- | ------------------------------------------------------- |
 | `acpi_device`                 | directory name of acpi device in `/sys/class/backlight` |
