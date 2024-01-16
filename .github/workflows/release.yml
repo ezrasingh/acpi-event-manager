@@ -17,4 +17,4 @@ jobs:
         run: cargo build
 
       - name: Run Unit Tests
-        run: cargo test
+        run: cargo test -- --test-threads=1

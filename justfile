@@ -19,3 +19,7 @@ install: build
     rm -f {{SYMLINK_INSTALL_PATH}}
     ln -s {{RELEASE_BIN_PATH}} {{SYMLINK_INSTALL_PATH}}
     which acpi-keyboard-backlight
+
+# run all unit test in single thread
+test:
+    cargo test -- test-threads=1
