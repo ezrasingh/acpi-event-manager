@@ -84,3 +84,17 @@ video/brightnessup BRTUP 00000086 00000000
 | `brightness_increment`        | how much to change brightness on up/down                |
 | `acpi_events.brightness_up`   | ACPI event code for brightness up                       |
 | `acpi_events.brightness_down` | ACPI event code for brightness down                     |
+
+## Unit Testing
+
+To prevent test from actually modifying system files, I replicated the filesystem needed to run unit test in the `fixtures/` directory. There is also a mock `config.toml` for validating the config parser.
+
+In order to run the entire test suite you must use a single thread. This is becuase `Rust` will by default run tests in parallel which creates a race-condition for files in the `fixtures/` directory.
+
+```shell
+# use
+cargo test -- --test-threads=1
+
+# or
+just test
+```
