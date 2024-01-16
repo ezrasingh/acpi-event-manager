@@ -2,7 +2,7 @@
 
 ## Preface
 
-For those who don't know; Original Equipment Manufacturers (OEM i.e, NVIDIA, HP, Dell, etc) may or may not extend Linux support for their native components (e.g Power Management IC, Fingerprint Reader, etc). What this means is that if you bought a OEM laptop and installed Linux on it there is no guarantee your OS will be able to use all the features of your machine.
+For those who don't know; Original Equipment Manufacturers (OEM i.e, NVIDIA, HP, Dell, etc) may or may not extend Linux support for their native components (e.g Power Management IC, Fingerprint Reader, etc). What this means is that if you bought an OEM laptop, then installed Linux on it there is no guarantee your OS will be able to use all the features of your machine.
 
 I should say rather, support varies. Either the company uses weird proprietary chips and don't care for the Linux market. Or, they do try to support Linux but cant keep up with product releases, patches and updates.
 
