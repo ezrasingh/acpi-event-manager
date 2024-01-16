@@ -27,35 +27,32 @@ struct Args {
 fn main() {
     let args = Args::parse();
     let config = config::Config::new(&args.config_file);
-    let mut backlight_config = backlight::BacklightConfig::from_config(&config);
+    let mut backlight = backlight::BacklightConfig::from_config(&config, None).unwrap();
     if args.debug {
         println!("{:?}", &args);
         println!("{:?}", &config);
-        println!("{:?}", &backlight_config);
-        println!("{}%", &backlight_config.percentage());
+        println!("{:?}", &backlight);
+        println!("{}%", &backlight.percentage());
     }
     if args.action.is_some() {
         config::sudo_check();
         match args.action {
             Some(acpi::AcpiEventAction::BrightnessUp) => {
-                backlight_config
-                    .change_brightness(&config.xrandr_display, 1 * config.brightness_increment);
-                backlight_config
-                    .save(&config.acpi_device)
-                    .expect("could not increase brightness");
+                backlight.change_brightness(config.brightness_increment);
+                acpi::save(config, backlight);
             }
             Some(acpi::AcpiEventAction::BrightnessDown) => {
-                backlight_config
-                    .change_brightness(&config.xrandr_display, -1 * config.brightness_increment);
-                backlight_config
-                    .save(&config.acpi_device)
-                    .expect("could not decrease brightness");
+                backlight.change_brightness(-config.brightness_increment);
+                acpi::save(config, backlight);
             }
             None => {}
         }
     }
     if args.configure {
         let config_path = Path::new(&args.config_file);
-        config.apply_config(config_path.to_str().unwrap());
+        let config = config::Config::new(&args.config_file);
+        config
+            .apply_config(config_path)
+            .expect("Could not apply ACPI config");
     }
 }

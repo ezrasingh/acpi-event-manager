@@ -1,0 +1,7 @@
+acpi_device = "acpi_device"
+xrandr_display = "xrandr_display"
+brightness_increment = 11
+
+[acpi_events]
+brightness_up = "brightness_up"
+brightness_down = "brightness_down"
