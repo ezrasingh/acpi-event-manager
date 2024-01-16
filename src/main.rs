@@ -27,29 +27,36 @@ struct Args {
 fn main() {
     let args = Args::parse();
     let config = config::Config::new(&args.config_file);
-    let mut backlight_config = backlight::BacklightConfig::from_config(&config);
+    let mut backlight = backlight::BacklightConfig::from_config(&config, None);
     if args.debug {
         println!("{:?}", &args);
         println!("{:?}", &config);
-        println!("{:?}", &backlight_config);
-        println!("{}%", &backlight_config.percentage());
+        println!("{:?}", &backlight);
+        println!("{}%", &backlight.percentage());
     }
     if args.action.is_some() {
         config::sudo_check();
         match args.action {
             Some(acpi::AcpiEventAction::BrightnessUp) => {
-                backlight_config
-                    .change_brightness(&config.xrandr_display, 1 * config.brightness_increment);
-                backlight_config
+                backlight.change_brightness(config.brightness_increment);
+                backlight
                     .save(&config.acpi_device)
                     .expect("could not increase brightness");
             }
             Some(acpi::AcpiEventAction::BrightnessDown) => {
-                backlight_config
-                    .change_brightness(&config.xrandr_display, -1 * config.brightness_increment);
-                backlight_config
+                backlight.change_brightness(-config.brightness_increment);
+                backlight
                     .save(&config.acpi_device)
                     .expect("could not decrease brightness");
+                std::process::Command::new("xrandr")
+                    .args(&[
+                        "--output",
+                        &config.xrandr_display,
+                        "--brightness",
+                        &backlight.percentage(),
+                    ])
+                    .output()
+                    .expect("could not change brightness");
             }
             None => {}
         }
