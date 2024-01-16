@@ -82,6 +82,11 @@ mod tests {
         };
         std::fs::write(helpers.acpi_device_path.join("brightness"), "27182")?;
         std::fs::write(helpers.acpi_device_path.join("max_brightness"), "31415")?;
+
+        // ! required to prevent filesystem race conditions
+        let wait_time = std::time::Duration::from_millis(500);
+        std::thread::sleep(wait_time);
+
         Ok(helpers)
     }
 
