@@ -1,5 +1,5 @@
-RELEASE_BIN_PATH := "$(pwd)/target/release/acpi-keyboard-backlight"
-SYMLINK_INSTALL_PATH := "/usr/local/bin/acpi-keyboard-backlight"
+RELEASE_BIN_PATH := "$(pwd)/target/release/acpi-event-manager"
+SYMLINK_INSTALL_PATH := "/usr/local/bin/acpi-event-manager"
 
 # default recipe to display help information
 default:

@@ -3,7 +3,7 @@
 version = 3
 
 [[package]]
-name = "acpi-keyboard-backlight"
+name = "acpi-event-manager"
 version = "0.1.0"
 dependencies = [
  "clap",

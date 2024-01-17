@@ -18,7 +18,7 @@ To run the CLI use `cargo run -- <args>`, for example:
 ```shell
 cargo run -- --help
 
-Usage: acpi-keyboard-backlight [OPTIONS]
+Usage: acpi-event-manager [OPTIONS]
 
 Options:
       --configure                  Installs acpi events and reloads acpi daemon
@@ -29,7 +29,7 @@ Options:
   -V, --version                    Print version
 ```
 
-To compile and install the script run `just install`, this will link the `acpi-keyboard-backlight` CLI binary to your `/usr/local/bin` directory. Or if you dont want to install onto your system you can try `just cli <args>`.
+To compile and install the script run `just install`, this will link the `acpi-event-manager` CLI binary to your `/usr/local/bin` directory. Or if you dont want to install onto your system you can try `just cli <args>`.
 
 ## Configuration 🔧
 
