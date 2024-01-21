@@ -113,12 +113,7 @@ mod tests {
         let helpers = prepare().unwrap();
         let mut backlight =
             BacklightConfig::from_config(&helpers.config, Some(helpers.fixtures_path)).unwrap();
-
-        let expected = format!(
-            "{:.3}",
-            Into::<f32>::into(backlight.brightness / backlight.max)
-        );
-        assert_eq!(backlight.percentage(), expected);
+        assert_eq!(backlight.percentage(), "0.865");
 
         backlight.brightness = backlight.max;
         assert_eq!(backlight.percentage(), "1.000");
