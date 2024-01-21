@@ -32,7 +32,7 @@ impl BacklightConfig {
 
     // ? calulate current brightness as ratio
     pub fn percentage(&self) -> String {
-        let ratio = Into::<f32>::into(self.brightness / self.max);
+        let ratio = Into::<f32>::into(self.brightness) / Into::<f32>::into(self.max);
         format!("{:.3}", ratio)
     }
 
