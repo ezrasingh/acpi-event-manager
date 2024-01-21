@@ -1,5 +1,6 @@
-RELEASE_BIN_PATH := "$(pwd)/target/release/acpi-event-manager"
-SYMLINK_INSTALL_PATH := "/usr/local/bin/acpi-event-manager"
+BIN := "acpi-event-manager"
+RELEASE_BIN_PATH := "$(pwd)/target/release"
+SYMLINK_INSTALL_PATH := "/usr/local/bin"
 
 # default recipe to display help information
 default:
@@ -12,13 +13,12 @@ cli ARGS:
 # compile main script
 build:
     cargo build --release
-    chmod +x {{RELEASE_BIN_PATH}}
+    chmod +x {{RELEASE_BIN_PATH}}/{{BIN}}
 
 # installs the command on the system
 install: build
-    rm -f {{SYMLINK_INSTALL_PATH}}
-    ln -s {{RELEASE_BIN_PATH}} {{SYMLINK_INSTALL_PATH}}
-    which acpi-keyboard-backlight
+    ln -s {{RELEASE_BIN_PATH}}/{{BIN}} {{SYMLINK_INSTALL_PATH}}/{{BIN}}
+    which {{BIN}}
 
 # run all unit test in single thread
 test:

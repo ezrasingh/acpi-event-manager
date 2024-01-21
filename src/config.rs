@@ -41,16 +41,16 @@ impl Config {
         let config_dir = config_path.to_str().unwrap();
         sudo_check();
         acpi::set_acpi_event_script(
-            "acpi-keyboard-backlight",
+            "acpi-event-manager",
             &format!("--action down --config-file {}", &config_dir),
-            "keyboard-backlight-down",
+            "brightness-down",
             &self.acpi_events.brightness_down,
             None,
         )?;
         acpi::set_acpi_event_script(
-            "acpi-keyboard-backlight",
+            "acpi-event-manager",
             &format!("--action up --config-file {}", &config_dir),
-            "keyboard-backlight-up",
+            "brightness-up",
             &self.acpi_events.brightness_up,
             None,
         )?;
