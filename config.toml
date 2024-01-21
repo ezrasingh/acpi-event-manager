@@ -1,6 +1,6 @@
 acpi_device = "acpi_video0"
 xrandr_display = "eDP-1-0"
-brightness_increment = 10
+brightness_increment = 1
 
 [acpi_events]
 brightness_up = "video/brightnessup BRTUP 00000086 00000000"
